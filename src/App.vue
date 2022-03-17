@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :class="typeof weather.main !='undefined'&& weather.main.temp > 16 ?'warm':''">
+  <div id="app" :class="typeof weather.main !='undefined'&& (weather.main.temp > 16 ?'warm':''||weather.main.temp < 0?'snow':'')">
     <main>
       <div class="search-box">
         <input type="text"
@@ -7,9 +7,9 @@
          placeholder="search..."
          v-model="query"
          @keypress="fetchWeather"
-         
+
           />
-        
+
       </div>
       <div class="weather-wrap" v-if="typeof weather.main != 'undefined'">
         <div class="location-box">  
@@ -55,7 +55,6 @@ export default{
       let month = months[d.getMonth()];
       let year = d.getFullYear();
       return `${day} ${date} ${month} ${year}`;
-
     }
   }
 }
@@ -140,7 +139,13 @@ main{
   text-shadow: 3px 6px rgba(0,0,0,0.25);
 }
 #app.warm{
- background-image:url('./assets/warm-bg.gif') ;
+ background-image:url('./assets/warm.jpg') ;
+}
+#app.snow{
+  background-image: url('./assets/snow.gif');
+}
+#app.hot{
+  background-image: url('./assets/warm-bg.gif');
 }
 .location{
   color: #fff;
